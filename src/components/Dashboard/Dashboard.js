@@ -83,6 +83,7 @@ export default class Dashboard extends Component {
       let total = acc;
 
       total += item.type === operations.DEPOSIT ? item.amount : 0;
+      total -= item.type === operations.WITHDRAW ? item.amount : 0;
 
       return total;
     }, balance);
