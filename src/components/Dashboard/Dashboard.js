@@ -1,9 +1,10 @@
-import React, { Component } from 'react';
+import React, { Component, createRef } from 'react';
 import styled from 'styled-components';
 import uuidv1 from 'uuid/v1';
 import Balance from './Balance/Balance';
 import Controls from './Controls/Controls';
 import TransactionHistory from './TransactinoHistory/TransactionHistory';
+import Modal from '../Modal/Modal';
 
 const operations = {
   DEPOSIT: 'Deposit',
@@ -19,7 +20,11 @@ export default class Dashboard extends Component {
   state = {
     history: [],
     balance: 3000,
+    isModalOpen: false,
+    errorMessage: '',
   };
+
+  modalRef = createRef();
 
   componentDidMount() {
     const localStorageHistory = JSON.parse(localStorage.getItem('history'));
@@ -41,6 +46,19 @@ export default class Dashboard extends Component {
       localStorage.setItem('history', JSON.stringify(history));
     }
   }
+
+  openModal = err => {
+    this.setState({ isModalOpen: true });
+    this.setErrorText(err);
+  };
+
+  setErrorText = err => {
+    this.setState({ errorMessage: err });
+  };
+
+  closeModal = () => {
+    this.setState({ isModalOpen: false });
+  };
 
   handleAddTransaction = (value, type) => {
     const transaction = {
@@ -90,8 +108,7 @@ export default class Dashboard extends Component {
   };
 
   render() {
-    const { history } = this.state;
-    const { balance } = this.state;
+    const { history, balance, isModalOpen, errorMessage } = this.state;
     const profitBalance = this.countBalanceByType(history, operations.DEPOSIT);
     const expenseBalance = this.countBalanceByType(
       history,
@@ -100,9 +117,11 @@ export default class Dashboard extends Component {
 
     return (
       <Container>
+        {isModalOpen && <Modal text={errorMessage} onClose={this.closeModal} />}
         <Controls
           handleAddTransaction={this.handleAddTransaction}
           balance={balance}
+          onOpenModal={this.openModal}
         />
         <Balance
           balance={balance}

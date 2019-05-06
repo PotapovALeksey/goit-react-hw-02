@@ -2,10 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { ControlsWrap, Input, Button } from './Controls.styled';
 
-function customAlert(message) {
-  alert(message); // eslint-disable-line no-alert
-}
-
 export default class Controls extends Component {
   state = {
     value: '',
@@ -14,6 +10,7 @@ export default class Controls extends Component {
   static propTypes = {
     handleAddTransaction: PropTypes.func.isRequired,
     balance: PropTypes.number.isRequired,
+    onOpenModal: PropTypes.func.isRequired,
   };
 
   handleChange = ({ target: { value } }) => {
@@ -24,9 +21,9 @@ export default class Controls extends Component {
   handleClickDeposit = e => {
     const { value } = this.state;
     const { type } = e.target.dataset;
-
+    const { onOpenModal } = this.props;
     if (this.isValidValue(value)) {
-      customAlert('Введите сумму для проведения операции!');
+      onOpenModal('Введите сумму для проведения операции!');
       this.reset();
       return;
     }
@@ -38,17 +35,17 @@ export default class Controls extends Component {
 
   handleClickWithdraw = e => {
     const { value } = this.state;
-    const { balance } = this.props;
+    const { balance, onOpenModal } = this.props;
     const { type } = e.target.dataset;
 
     if (this.isValidValue(value)) {
-      customAlert('Введите сумму для проведения операции!');
+      onOpenModal('Введите сумму для проведения операции!');
       this.reset();
       return;
     }
 
     if (balance < value) {
-      customAlert('На счету недостаточно средств для проведения операции!');
+      onOpenModal('На счету недостаточно средств для проведения операции!');
       this.reset();
       return;
     }
