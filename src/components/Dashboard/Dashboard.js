@@ -42,7 +42,7 @@ export default class Dashboard extends Component {
     }
   }
 
-  addTransaction = (value, type) => {
+  handleAddTransaction = (value, type) => {
     const transaction = {
       id: uuidv1(),
       type,
@@ -100,11 +100,14 @@ export default class Dashboard extends Component {
 
     return (
       <Container>
-        <Controls addTransaction={this.addTransaction} balance={balance} />
+        <Controls
+          handleAddTransaction={this.handleAddTransaction}
+          balance={balance}
+        />
         <Balance
           balance={balance}
-          profit={profitBalance}
-          expense={expenseBalance}
+          income={profitBalance}
+          expenses={expenseBalance}
         />
         <TransactionHistory items={history} />
       </Container>

@@ -4,6 +4,8 @@ import MovieGrid from './MovieGrid/MovieGrid';
 import SearchBar from './SearchBar/SearchBar';
 import movies from '../../bd/movies.json';
 
+const notMutch = 'No matching results';
+
 const filterMovies = (value, films) => {
   return films.filter(film =>
     film.title.toLowerCase().includes(value.toLowerCase()),
@@ -24,7 +26,11 @@ export default class MoviePage extends Component {
     return (
       <Container>
         <SearchBar value={value} onChange={this.handleChange} />
-        <MovieGrid items={filteredMovies} />
+        {filteredMovies.length > 0 ? (
+          <MovieGrid items={filteredMovies} />
+        ) : (
+          <div>{notMutch}</div>
+        )}
       </Container>
     );
   }

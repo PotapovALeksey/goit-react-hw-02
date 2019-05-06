@@ -14,26 +14,21 @@ const StyledReader = styled.div`
 export default class Reader extends Component {
   static propTypes = {
     items: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
-    step: PropTypes.number,
-  };
-
-  static defaultProps = {
-    step: 1,
   };
 
   state = {
     index: 0,
   };
 
-  handleIncrement = () => {
+  handleNext = () => {
     this.setState(state => ({
-      index: state.index + this.props.step,
+      index: state.index + 1,
     }));
   };
 
-  handleDecrement = () => {
+  handlePrev = () => {
     this.setState(state => ({
-      index: state.index - this.props.step,
+      index: state.index - 1,
     }));
   };
 
@@ -45,12 +40,12 @@ export default class Reader extends Component {
     return (
       <StyledReader>
         <Publication item={items[index]} />
-        <Counter index={index} lastIndex={lastIndex} />
+        <Counter index={index + 1} lastIndex={lastIndex} />
         <Controls
-          isPrev={index !== 0}
-          isNext={index + 1 < lastIndex}
-          onIncrement={this.handleIncrement}
-          onDecrement={this.handleDecrement}
+          currentPage={index}
+          lastPage={lastIndex}
+          onHandlePrev={this.handlePrev}
+          onHandleNext={this.handleNext}
         />
       </StyledReader>
     );

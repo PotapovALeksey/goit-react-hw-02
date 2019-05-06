@@ -1,36 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { ControlsStyled, ButtonPrev, ButtonNext } from './Controls.styled';
+import { ControlsStyled, Button } from './Controls.styled';
 
-const Controls = ({ isPrev, isNext, onDecrement, onIncrement }) => (
+const Controls = ({ currentPage, lastPage, onHandlePrev, onHandleNext }) => (
   <ControlsStyled>
-    <ButtonPrev
-      onClick={onDecrement}
-      isPrev={isPrev}
-      disable={!isPrev ? 'disable' : null}
-    >
+    <Button onClick={onHandlePrev} isDisabled={currentPage !== 0}>
       Previous
-    </ButtonPrev>
-    <ButtonNext
-      onClick={onIncrement}
-      isNext={isNext}
-      disable={!isNext ? 'disable' : null}
-    >
+    </Button>
+    <Button onClick={onHandleNext} isDisabled={currentPage + 1 < lastPage}>
       Next
-    </ButtonNext>
+    </Button>
   </ControlsStyled>
 );
 
-Controls.defaultProps = {
-  isPrev: false,
-  isNext: false,
-};
-
 Controls.propTypes = {
-  onIncrement: PropTypes.func.isRequired,
-  onDecrement: PropTypes.func.isRequired,
-  isPrev: PropTypes.bool,
-  isNext: PropTypes.bool,
+  onHandlePrev: PropTypes.func.isRequired,
+  onHandleNext: PropTypes.func.isRequired,
+  currentPage: PropTypes.number.isRequired,
+  lastPage: PropTypes.number.isRequired,
 };
 
 export default Controls;

@@ -2,27 +2,27 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { BalanceWrap, Span } from './Balance.styled';
 
-const Balance = ({ profit, expense, balance }) => (
+const Balance = ({ income, expenses, balance }) => (
   <BalanceWrap>
     <Span role="img" aria-label="icon">
-      ⬆{profit}$
+      ⬆{income}$
     </Span>
     <Span role="img" aria-label="icon">
-      ⬇{expense}$
+      ⬇{expenses}$
     </Span>
     <Span>Balance: {balance}$</Span>
   </BalanceWrap>
 );
 
 Balance.defaultProps = {
-  profit: 0,
-  expense: 0,
+  income: 0,
+  expenses: 0,
   balance: 0,
 };
 
 Balance.propTypes = {
-  profit: PropTypes.number,
-  expense: PropTypes.number,
+  income: PropTypes.number,
+  expenses: PropTypes.number,
   balance: PropTypes.number,
 };
 

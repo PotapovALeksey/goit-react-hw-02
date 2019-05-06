@@ -5,9 +5,9 @@ import MovieGridItem from '../MovieGridItem/MovieGridItem';
 
 const MovieGrid = ({ items }) => (
   <MovieGridStyled>
-    {items.length > 0
-      ? items.map(item => <MovieGridItem key={item.id} item={item} />)
-      : 'No matching results'}
+    {items.map(item => (
+      <MovieGridItem key={item.id} item={item} />
+    ))}
   </MovieGridStyled>
 );
 

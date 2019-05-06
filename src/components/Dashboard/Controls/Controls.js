@@ -12,7 +12,7 @@ export default class Controls extends Component {
   };
 
   static propTypes = {
-    addTransaction: PropTypes.func.isRequired,
+    handleAddTransaction: PropTypes.func.isRequired,
     balance: PropTypes.number.isRequired,
   };
 
@@ -31,7 +31,7 @@ export default class Controls extends Component {
       return;
     }
 
-    this.props.addTransaction(value, type);
+    this.props.handleAddTransaction(value, type);
 
     this.reset();
   };
@@ -52,7 +52,7 @@ export default class Controls extends Component {
       this.reset();
       return;
     }
-    this.props.addTransaction(value, type);
+    this.props.handleAddTransaction(value, type);
 
     this.reset();
   };

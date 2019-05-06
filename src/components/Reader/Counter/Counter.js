@@ -4,7 +4,7 @@ import CounterStyled from './Counter.styled';
 
 const Counter = ({ index, lastIndex }) => (
   <CounterStyled>
-    {index + 1} /{lastIndex}
+    {index} /{lastIndex}
   </CounterStyled>
 );
 
